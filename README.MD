@@ -21,6 +21,7 @@ Optional:
 > 3.  Copy ssh and wpa_supplicant to boot drive (make sure network and password are set in wpa_supplicant).
 > 4.  Boot the Pi with flash drive inserted.
 > 5.  Follow instructions on screen to set keyboard layout, username, and password.
+>     **NOTE: If there is no video output, but you have a green light, there is likely a problem with the HDMI. SSH into device and apply updates that way.**
 > 6.  Record username and password somewhere safe.
 > 7.  Update system:
 >
@@ -99,6 +100,8 @@ Optional:
 > > sudo nano/etc/dhcpod.conf
 > > ```
 > >
+> > - Add this line to the end of the file:
+> >
 > > ```bash
 > > interface eth0
 > > static ip_address=10.0.0.100
@@ -115,3 +118,23 @@ Optional:
 > > - static routers: This is your default gateway IP address.
 > > - static domain_name_servers: These are the IP’s we found in the resolv.conf file above. Separate each IP with a single space.
 > > - **Set `wlan0` differently than `etho0`**
+
+## Pi 4 Model B Setup
+
+### OS Information
+
+> Newest working: Pi OS (Legacy) port of Bullseye 32bit with included config
+>
+> > - `hdmi_force_hotplug=1`
+> > - `hdmi_group=2`
+> > - `hdmi_mode=85` (Able to change to 82 for higher resolution after setup)
+>
+> **Summary:**
+>
+> > My Pi 4 was running Buster(v10). I had never run Bullseye(v11), but Bookworm(v12) is now the latest version at the time of writing. I attempted to create a new card on a 32GB microSD card (replicated this process across multiple card to verify card was not faulty). I was repeatedly unable to get video, but was able to verfiy device was booting because green light was active, and my old setup still worked when I put that SD card in the Pi. I went through many itteratons of trying to get the HDMI working. Ultimately the resolution boiled down to a few of things:
+> >
+> > > - The Bookworm system still did not boot with the working config.txt file above. I beleive there is more to this problem than just config.txt.
+> > > - The working config file works in Bullsye(v11) 32 setup. The `config.txt` file located in the `/pi4` directry of this repo.
+> > > - The changes listed above seemed to be the fixing changes.
+>
+> Port to Bookworm has been unsuccessful ths far, unable to get any of my current displays to function with it.
