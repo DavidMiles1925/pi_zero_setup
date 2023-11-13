@@ -49,9 +49,11 @@ Optional:
 > 2.  Add this line to /etc/rc.local:
 >
 > ```bash
-> sudo python /home/pi/water_alarm_clock/main.py &
+> sudo python /home/pi/yourprogram/program.py &
 > ```
 >
+> - **Replace `/home/pi/yourprogram/program.py` with your directory**
+
 > 3.  Stopping the process:
 >
 > - To stop the process, first find the pid number:
