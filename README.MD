@@ -53,7 +53,9 @@ Optional:
 > ```
 >
 > - **Replace `/home/pi/yourprogram/program.py` with your directory**
-
+>
+> - **Don't forget the `&` at the end to allow the program to run in the background**
+>
 > 3.  Stopping the process:
 >
 > - To stop the process, first find the pid number:
