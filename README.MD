@@ -1,3 +1,17 @@
+## Table of Contents:
+
+[**Raspberry Pi Zero W:**](#setting-up-raspberry-pi-zero)
+&emsp;[Materials](#materials)
+&emsp;[Setup Procedure](#setup-procedure)
+&emsp;[Other Helpful Proceedures](#other-helpful-procedures)
+&emsp;&emsp;[Configure a Program to Run on Startup](#configure-a-program-to-run-on-startup)
+&emsp;&emsp;[Configure a Static IP](#configure-static-ip-address)
+[**Raspberry Pi 4 Model B:**](#pi-4-model-b-setup)
+&emsp;[OS Information](#os-information)
+&emsp;[System Preferences](#system-preferences)
+&emsp;&emsp;[Install Applications](#install-applications)
+&emsp;&emsp;[Setup Desktop](#set-up-desktop)
+
 # Setting up Raspberry Pi Zero
 
 ## Materials
@@ -11,7 +25,7 @@
 - Keyboard
 - 20x2 pin header
 
-## Set Up Procedure
+## Setup Procedure
 
 > 1.  Download the imager: [Pi Imager installation](https://www.raspberrypi.com/software/)
 > 2.  Follow imager instructions to install Lite OS to flash drive. (32-Bit Laegacy port of Bullseye)
@@ -36,9 +50,9 @@
 > git config --global user.name "Your Name"
 > ```
 
-## Helpful Procedures
+## Other Helpful Procedures
 
-### Configure to Run on Startup:
+### Configure a Program to Run on Startup:
 
 > 1.  Modify etc/rc.local with admin priviliges:
 >
@@ -58,7 +72,7 @@
 >
 > 3.  Stopping the process:
 >
-> - To stop the process, first find the pid number:
+> - To stop the process, first find the PID number:
 >
 > ```bash
 > ps aux | grep "main.py"
@@ -137,7 +151,7 @@
 > > My Pi 4 was running Buster(v10). I had never run Bullseye(v11), but Bookworm(v12) is now the latest version at the time of writing. I attempted to create a new card on a 32GB microSD card (replicated this process across multiple card to verify card was not faulty). I was repeatedly unable to get video, but was able to verfiy device was booting because green light was active, and my old setup still worked when I put that SD card in the Pi. I went through many itteratons of trying to get the HDMI working. Ultimately the resolution boiled down to a few of things:
 > >
 > > > - The Bookworm system still did not boot with the working config.txt file above. I beleive there is more to this problem than just config.txt.
-> > > - The working config file works in Bullsye(v11) 32 setup. The `config.txt` file located in the `/pi4` directry of this repo.
+> > > - The working config file works in Bullsye(v11) 32-bit setup. The `config.txt` file located in the `/pi4` directry of this repo.
 > > > - The changes listed above seemed to be the fixing changes.
 >
 > Port to Bookworm has been unsuccessful ths far, unable to get any of my current displays to function with it.
@@ -172,5 +186,3 @@
 - Right click on the desktop and click `Desktop Appearance`.  
 - Select background and color scheme. (I like aurora for the background, and dark green for taskbar.)
 
-
-###
