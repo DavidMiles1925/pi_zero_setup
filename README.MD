@@ -138,3 +138,23 @@ Optional:
 > > > - The changes listed above seemed to be the fixing changes.
 >
 > Port to Bookworm has been unsuccessful ths far, unable to get any of my current displays to function with it.
+
+### Install Applications
+
+> **Firefox:**
+>
+> - Install through OS package installer: `Preferences` > `Add/Remove Software`
+> - `Mozilla Firefox web browser - Extended Support Release (ESR)`
+>
+> **Visual Sudio Code:**
+>
+> - Install through: `Preferences` > `Recommended Software`
+> - `Visual Studio Code`
+
+### Set up Desktop
+
+**Task bar items**
+
+- Right click on the launch area of the tas bar (the icons that are already pinned)
+- Click `Application Launch Bar Settings`
+- Add Firefox and Visual Studio. Remove Chromium
