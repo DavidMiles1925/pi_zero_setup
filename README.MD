@@ -10,6 +10,7 @@
 &emsp;[OS Information](#os-information)  
 &emsp;[System Preferences](#system-preferences)  
 &emsp;&emsp;[Install Applications](#install-applications)  
+&emsp;&emsp;[Set GPU Memory](#set-gpu-memory)  
 &emsp;&emsp;[Setup Desktop](#set-up-desktop)  
 
 # Setting up Raspberry Pi Zero
@@ -150,9 +151,9 @@
 >
 > > My Pi 4 was running `Buster(*v10*)`. I had never run `Bullseye(*v11*)`, but `Bookworm(*v12*)` is now the latest version at the time of writing. I attempted to create a new card on a 32GB microSD card (replicated this process across multiple card to verify card was not faulty). I tried both `Bookworm` and `Bullseye` in both 32 and 64 bit versions. I was repeatedly unable to get video, but was able to verfiy device was booting because green light was active, and my old setup still worked when I put that SD card in the Pi. The `config.txt` file from `Buster` did not work with either of the newer versions. I went through many itteratons of trying to get the HDMI working. Ultimately the resolution boiled down to a few of things:
 > >
-> > > - The `Bookworm` system still did not boot with the working config.txt file above. I beleive there is more to this problem than just config.txt.
-> > > - The working config file works in `Bullsye` 32-bit setup. The `config.txt` file located in the `/pi4` directry of this repo.
-> > > - The changes listed above seemed to be the fixing changes.
+> > > - The `Bookworm` system still did not boot with the working config.txt file above. I beleive there is more to this problem than just config.txt.  
+> > > - The working config file works with the `Bullsye` 32-bit setup. The `config.txt` file located in the `/pi4` directry of this repo.  
+> > > - The changes listed above seemed to be the fixing changes.  
 >
 > A port to `Bookworm` has been unsuccessful ths far, unable to get any of my current displays to function with it.
 
@@ -169,20 +170,26 @@
 >
 > - Install through: `Preferences` > `Recommended Software`  
 > - `Visual Studio Code`  
-> - After Installing VS Code:
+> - After Installing VS Code:  
 > &emsp;- Install Python Extension  
-> &emsp;- Install Prettier Extension
+> &emsp;- Install Prettier Extension  
+
+### Set GPU Memory
+
+>The default memory (76MB) is fine for most things. Videos will need more at higher resolutions.  
+>- `Preferences` > `Rasberry Pi Configuration` > `Performance` Tab > `GPU Memory`  
+>- Set value to `124`. **NOTE: Going higher than 128MB can result in failure to boot.**  
 
 ### Set up Desktop
 
 **Task bar items:**
 
-- Right click on the launch area of the tas bar (the icons that are already pinned)  
+- Right click on the launch area of the task bar (the icons that are already pinned)  
 - Click `Application Launch Bar Settings`  
 - Add Firefox and Visual Studio to the taskbar. Remove Chromium.  
 
 **Desktop Apearance:**
 
 - Right click on the desktop and click `Desktop Appearance`.  
-- Select background and color scheme. (I like aurora for the background, and dark green for taskbar.)
+- Select background and color scheme. (I like aurora for the background image, and dark green for taskbar.)
 
