@@ -1,16 +1,16 @@
 ## Table of Contents:
 
-[**Raspberry Pi Zero W:**](#setting-up-raspberry-pi-zero)
-&emsp;[Materials](#materials)
-&emsp;[Setup Procedure](#setup-procedure)
-&emsp;[Other Helpful Proceedures](#other-helpful-procedures)
-&emsp;&emsp;[Configure a Program to Run on Startup](#configure-a-program-to-run-on-startup)
-&emsp;&emsp;[Configure a Static IP](#configure-static-ip-address)
-[**Raspberry Pi 4 Model B:**](#pi-4-model-b-setup)
-&emsp;[OS Information](#os-information)
-&emsp;[System Preferences](#system-preferences)
-&emsp;&emsp;[Install Applications](#install-applications)
-&emsp;&emsp;[Setup Desktop](#set-up-desktop)
+[**Raspberry Pi Zero W:**](#setting-up-raspberry-pi-zero)  
+&emsp;[Materials](#materials)  
+&emsp;[Setup Procedure](#setup-procedure)  
+&emsp;[Other Helpful Proceedures](#other-helpful-procedures)  
+&emsp;&emsp;[Configure a Program to Run on Startup](#configure-a-program-to-run-on-startup)  
+&emsp;&emsp;[Configure a Static IP](#configure-static-ip-address)  
+[**Raspberry Pi 4 Model B:**](#pi-4-model-b-setup)  
+&emsp;[OS Information](#os-information)  
+&emsp;[System Preferences](#system-preferences)  
+&emsp;&emsp;[Install Applications](#install-applications)  
+&emsp;&emsp;[Setup Desktop](#set-up-desktop)  
 
 # Setting up Raspberry Pi Zero
 
