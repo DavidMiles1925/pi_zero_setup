@@ -32,6 +32,8 @@
 >
 > ```bash
 > sudo apt install git
+> git config --global user.email "you@example.com"
+> git config --global user.name "Your Name"
 > ```
 
 ## Helpful Procedures
@@ -122,8 +124,10 @@
 
 ## OS Information
 
-> Newest working: Pi OS (Legacy) port of Bullseye 32bit with included config
+> Newest working: Pi OS (Legacy) port of Bullseye 32bit. Use `config.txt` from the `/pi4` directory.
 >
+> Critical changes to `config.txt`  
+> > Uncomment these lines:
 > > - `hdmi_force_hotplug=1`
 > > - `hdmi_group=2`
 > > - `hdmi_mode=85` (Able to change to 82 for higher resolution after setup)
@@ -151,7 +155,9 @@
 >
 > - Install through: `Preferences` > `Recommended Software`  
 > - `Visual Studio Code`  
-> - Install Python Extension  
+> - After Installing VS Code:
+> &emsp;- Install Python Extension  
+> &emsp;- Install Prettier Extension
 
 ### Set up Desktop
 
