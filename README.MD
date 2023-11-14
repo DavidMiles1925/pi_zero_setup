@@ -9,9 +9,6 @@
 - 5V 2.5A power supply
 - Monitor
 - Keyboard
-
-Optional:
-
 - 20x2 pin header
 
 ## Set Up Procedure
@@ -78,7 +75,7 @@ Optional:
 
 > > [**Link to article on CircuitBasics.com**](https://www.circuitbasics.com/how-to-set-up-a-static-ip-on-the-raspberry-pi/#:~:text=If%20the%20IP%20address%20of,work%20each%20and%20every%20time)
 >
-> > Extrapolation:
+> > Summary of Article
 > >
 > > 1. Find `Gateway` info for `wlan0`:
 > >
@@ -119,9 +116,11 @@ Optional:
 > > - static domain_name_servers: These are the IP’s we found in the resolv.conf file above. Separate each IP with a single space.
 > > - **Set `wlan0` differently than `etho0`**
 
-## Pi 4 Model B Setup
+---
 
-### OS Information
+# Pi 4 Model B Setup
+
+## OS Information
 
 > Newest working: Pi OS (Legacy) port of Bullseye 32bit with included config
 >
@@ -139,22 +138,33 @@ Optional:
 >
 > Port to Bookworm has been unsuccessful ths far, unable to get any of my current displays to function with it.
 
+## System Preferences
+
 ### Install Applications
 
 > **Firefox:**
 >
-> - Install through OS package installer: `Preferences` > `Add/Remove Software`
-> - `Mozilla Firefox web browser - Extended Support Release (ESR)`
+> - Install through OS package installer: `Preferences` > `Add/Remove Software`  
+> - `Mozilla Firefox web browser - Extended Support Release (ESR)`  
 >
-> **Visual Sudio Code:**
+> **Visual Sudio Code:**  
 >
-> - Install through: `Preferences` > `Recommended Software`
-> - `Visual Studio Code`
+> - Install through: `Preferences` > `Recommended Software`  
+> - `Visual Studio Code`  
+> - Install Python Extension  
 
 ### Set up Desktop
 
-**Task bar items**
+**Task bar items:**
 
-- Right click on the launch area of the tas bar (the icons that are already pinned)
-- Click `Application Launch Bar Settings`
-- Add Firefox and Visual Studio. Remove Chromium
+- Right click on the launch area of the tas bar (the icons that are already pinned)  
+- Click `Application Launch Bar Settings`  
+- Add Firefox and Visual Studio to the taskbar. Remove Chromium.  
+
+**Desktop Apearance:**
+
+- Right click on the desktop and click `Desktop Appearance`.  
+- Select background and color scheme. (I like aurora for the background, and dark green for taskbar.)
+
+
+###
