@@ -50,6 +50,12 @@
 > git config --global user.email "you@example.com"
 > git config --global user.name "Your Name"
 > ```
+>
+> 9. Update Time Zone
+>
+> ```bash
+> sudo dpkg-reconfigure tzdata
+> ```
 
 ## Other Helpful Procedures
 
