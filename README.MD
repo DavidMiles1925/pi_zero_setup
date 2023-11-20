@@ -125,14 +125,14 @@
 > >
 > > ```bash
 > > interface eth0
-> > static ip_address=10.0.0.100
-> > static routers=10.0.0.1
-> > static domain_name_servers=75.75.75.75 75.75.76.76 2001:558:feed::1 2001:558:feed::2
+> > static ip_address=192.168.1.100
+> > static routers=192.168.1.1
+> > static domain_name_servers=192.168.1.1 2001:558:feed::1 2001:558:feed::2
 > >
 > > interface wlan0
-> > static ip_address=10.0.0.99
-> > static routers=10.0.0.1
-> > static domain_name_servers=75.75.75.75 75.75.76.76 2001:558:feed::1 2001:558:feed::2
+> > static ip_address=192.168.1.101
+> > static routers=192.168.1.1
+> > static domain_name_servers=192.168.1.1 2001:558:feed::1 2001:558:feed::2
 > > ```
 > >
 > > - static ip_address: This is the static IP address you’ll use to SSH or remotely connect to your Pi. Take your default gateway IP (found in the steps above), and change the last number to any other number between 0 and 255.
