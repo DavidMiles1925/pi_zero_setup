@@ -28,14 +28,14 @@
 
 ## Setup Procedure
 
-> 1.  Download the imager: [Pi Imager installation](https://www.raspberrypi.com/software/)
+> 1.  Download the imager on a separate computer: [Pi Imager installation](https://www.raspberrypi.com/software/)
 > 2.  Follow imager instructions to install Lite OS to flash drive. (32-Bit Laegacy port of Bullseye)
-> 3.  Copy ssh and wpa_supplicant to boot drive (make sure network and password are set in wpa_supplicant).
+> 3.  Copy `ssh` and `wpa_supplicant` files from above to the boot drive (make sure `network` and `password` are set in `wpa_supplicant`).
 > 4.  Boot the Pi with flash drive inserted.
 > 5.  Follow instructions on screen to set keyboard layout, username, and password.  
->&emsp;**NOTE: If there is no video output, but you have a green light, there is likely a problem with the HDMI. SSH into device and apply updates that way.**
+>**NOTE: If there is no video output, but you have a green light, there is likely a problem with the HDMI. SSH into device and apply updates that way.**
 > 6.  Record username and password somewhere safe.
-> 7.  Update system:
+> 7.  Update the system:
 >
 > ```bash
 > sudo apt-get update
@@ -86,15 +86,14 @@
 > ```bash
 > ps aux | grep "main.py"
 > ```
+> - *Note the number in the second column.*
 >
-> - Note the number in the second column.
 > - Ternimate Process:
 >
 > ```bash
 > sudo kill -TERM ###
 > ```
->
-> - **replace "###" with the number from step 4**
+> - *replace "###" with the number from step 4*
 
 ### Configure Static IP Address:
 
