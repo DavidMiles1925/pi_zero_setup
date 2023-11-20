@@ -32,8 +32,8 @@
 > 2.  Follow imager instructions to install Lite OS to flash drive. (32-Bit Laegacy port of Bullseye)
 > 3.  Copy ssh and wpa_supplicant to boot drive (make sure network and password are set in wpa_supplicant).
 > 4.  Boot the Pi with flash drive inserted.
-> 5.  Follow instructions on screen to set keyboard layout, username, and password.
->     **NOTE: If there is no video output, but you have a green light, there is likely a problem with the HDMI. SSH into device and apply updates that way.**
+> 5.  Follow instructions on screen to set keyboard layout, username, and password.  
+>&emsp;**NOTE: If there is no video output, but you have a green light, there is likely a problem with the HDMI. SSH into device and apply updates that way.**
 > 6.  Record username and password somewhere safe.
 > 7.  Update system:
 >
@@ -43,7 +43,7 @@
 > sudo reboot
 > ```
 >
-> 8.  Install Git:
+> 8. Install Git:
 >
 > ```bash
 > sudo apt install git
@@ -56,6 +56,8 @@
 > ```bash
 > sudo dpkg-reconfigure tzdata
 > ```
+>
+> 10. (Optional) [Configure Static IP Address](#configure-static-ip-address)
 
 ## Other Helpful Procedures
 
@@ -117,7 +119,7 @@
 > > 4. Configure settings:
 > >
 > > ```bash
-> > sudo nano/etc/dhcpod.conf
+> > sudo nano/etc/dhcpcd.conf
 > > ```
 > >
 > > - Add this line to the end of the file:
