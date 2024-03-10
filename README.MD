@@ -1,6 +1,6 @@
 ## Table of Contents:
 
-[**Raspberry Pi Zero W:**](#setting-up-raspberry-pi-zero)  
+[**Raspberry Pi Zero W (and Zero 2 W):**](#setting-up-raspberry-pi-zero)  
 &emsp;[Materials](#materials)  
 &emsp;[Setup Procedure](#setup-procedure)  
 &emsp;[Other Helpful Proceedures](#other-helpful-procedures)  
@@ -11,7 +11,7 @@
 &emsp;[System Preferences](#system-preferences)  
 &emsp;&emsp;[Install Applications](#install-applications)  
 &emsp;&emsp;[Set GPU Memory](#set-gpu-memory)  
-&emsp;&emsp;[Setup Desktop](#set-up-desktop)  
+&emsp;&emsp;[Setup Desktop](#set-up-desktop)
 
 # Setting up Raspberry Pi Zero
 
@@ -28,36 +28,52 @@
 
 ## Setup Procedure
 
-> 1.  Download the imager on a separate computer: [Pi Imager installation](https://www.raspberrypi.com/software/)
-> 2.  Follow imager instructions to install Lite OS to flash drive. (32-Bit Laegacy port of Bullseye)
-> 3.  Copy `ssh` and `wpa_supplicant` files from above to the boot drive (make sure `network` and `password` are set in `wpa_supplicant`).
-> 4.  Boot the Pi with flash drive inserted.
-> 5.  Follow instructions on screen to set keyboard layout, username, and password.  
->**NOTE: If there is no video output, but you have a green light, there is likely a problem with the HDMI. SSH into device and apply updates that way.**
-> 6.  Record username and password somewhere safe.
-> 7.  Update the system:
+> > 1.  Download the imager on a separate computer: [Pi Imager installation](https://www.raspberrypi.com/software/)
 >
-> ```bash
-> sudo apt-get update
-> sudo apt-get upgrade
-> sudo reboot
-> ```
+> > 2.  Follow imager instructions to install Lite OS to flash drive. (32-Bit Laegacy port of Bullseye)
 >
-> 8. Install Git:
+> > 3.  Download `ssh` file from above (or create a blank file and name it ssh). NOTE: This file has no contents. It's only purpose is to signal to the RPi that SSH should be enabled.
 >
-> ```bash
-> sudo apt install git
-> git config --global user.email "you@example.com"
-> git config --global user.name "Your Name"
-> ```
+> > 4.  Copy the ssh file to the flash drive.
 >
-> 9. Update Time Zone
+> > 5.  Remove the flash drive from the computer and place in the Raspberry Pi Zero 2 W.
+
+> > 6.  Connect your peripherals and boot the device.
 >
-> ```bash
-> sudo dpkg-reconfigure tzdata
-> ```
+> > 7.  Once the device boots, follow instructions on screen to set keyboard layout, username, and password.  
+> >     **NOTE: If there is no video output, but you have a green light, there is likely a problem with the HDMI. See troubleshooting below.**
 >
-> 10. (Optional) [Configure Static IP Address](#configure-static-ip-address)
+> > 8.  Record username and password somewhere safe.
+>
+> > 9.  Configure your Wifi by typing this into the command line:
+> >
+> > ```bash
+> > sudo raspi-config
+> > ```
+> >
+> > &emsp;Select ""
+> > &emsp;The "SSID" refers to the name of your network
+> > &emsp;The "psk" is your password.
+>
+> > 10. Set the timezone. From the raspi-config menu, select "4."
+>
+> > 11. Update your device
+> >
+> > ```bash
+> > sudo apt-get update
+> > sudo apt-get upgrade
+> > sudo reboot
+> > ```
+>
+> > 8.  Install Git:
+> >
+> > ```bash
+> > sudo apt install git
+> > git config --global user.email "you@example.com"
+> > git config --global user.name "Your Name"
+> > ```
+>
+> > 10. (Optional) [Configure Static IP Address](#configure-static-ip-address) >> &emsp;This is useful if you want to be able to access your device remotely via SSH.
 
 ## Other Helpful Procedures
 
@@ -86,14 +102,16 @@
 > ```bash
 > ps aux | grep "main.py"
 > ```
-> - *Note the number in the second column.*
+>
+> - _Note the number in the second column._
 >
 > - Ternimate Process:
 >
 > ```bash
 > sudo kill -TERM ###
 > ```
-> - *replace "###" with the number from step 4*
+>
+> - _replace "###" with the number from step 4_
 
 ### Configure Static IP Address:
 
@@ -148,8 +166,10 @@
 
 > **Newest working: `Pi OS (Legacy) port of Bullseye 32bit`. Use `config.txt` from the `/pi4` directory.**
 >
-> Critical changes to `config.txt`  
+> Critical changes to `config.txt`
+>
 > > Uncomment these lines:
+> >
 > > - `hdmi_force_hotplug=1`
 > > - `hdmi_group=2`
 > > - `hdmi_mode=85` (Able to change to 82 for higher resolution after setup)
@@ -158,9 +178,9 @@
 >
 > > My Pi 4 was running `Buster(*v10*)`. I had never run `Bullseye(*v11*)`, but `Bookworm(*v12*)` is now the latest version at the time of writing. I attempted to create a new OS image on a 32GB microSD card (I replicated this process across multiple cards to verify they were not faulty). I tried both `Bookworm` and `Bullseye` in both 32 and 64 bit versions. I was repeatedly unable to get video, but was able to verfiy device was booting because green light was active, and my old setup still worked when I put that SD card in the Pi. The `config.txt` file from `Buster` did not work with either of the newer versions. I went through many itteratons of trying to get the HDMI working. Ultimately the resolution boiled down to a few of things:
 > >
-> > > - The `Bookworm` system still did not boot with the working config.txt file above. I beleive there is more to this problem than just `config.txt`.  
-> > > - The working config file works with the `Bullsye` 32-bit setup. The `config.txt` file located in the `/pi4` directry of this repo.  
-> > > - The changes listed above seemed to be the fixing changes.  
+> > > - The `Bookworm` system still did not boot with the working config.txt file above. I beleive there is more to this problem than just `config.txt`.
+> > > - The working config file works with the `Bullsye` 32-bit setup. The `config.txt` file located in the `/pi4` directry of this repo.
+> > > - The changes listed above seemed to be the fixing changes.
 >
 > A port to `Bookworm` has been unsuccessful ths far, unable to get any of my current displays to function with it.
 
@@ -170,33 +190,33 @@
 
 > **Firefox:**
 >
-> - Install through OS package installer: `Preferences` > `Add/Remove Software`  
-> - `Mozilla Firefox web browser - Extended Support Release (ESR)`  
+> - Install through OS package installer: `Preferences` > `Add/Remove Software`
+> - `Mozilla Firefox web browser - Extended Support Release (ESR)`
 >
-> **Visual Sudio Code:**  
+> **Visual Sudio Code:**
 >
-> - Install through: `Preferences` > `Recommended Software`  
-> - `Visual Studio Code`  
+> - Install through: `Preferences` > `Recommended Software`
+> - `Visual Studio Code`
 > - After Installing VS Code:  
-> &emsp;- Install Python Extension  
-> &emsp;- Install Prettier Extension  
+>   &emsp;- Install Python Extension  
+>   &emsp;- Install Prettier Extension
 
 ### Set GPU Memory
 
-> The default memory (76MB) is fine for most things. Videos will need more at higher resolutions.  
-> - `Preferences` > `Rasberry Pi Configuration` > `Performance` Tab > `GPU Memory`  
-> - Set value to `124`. **NOTE: Going higher than 128MB can result in failure to boot.**  
+> The default memory (76MB) is fine for most things. Videos will need more at higher resolutions.
+>
+> - `Preferences` > `Rasberry Pi Configuration` > `Performance` Tab > `GPU Memory`
+> - Set value to `124`. **NOTE: Going higher than 128MB can result in failure to boot.**
 
 ### Set up Desktop
 
 **Task bar items:**
 
-> - Right click on the launch area of the task bar (the icons that are already pinned)  
-> - Click `Application Launch Bar Settings`  
-> - Add Firefox and Visual Studio to the taskbar. Remove Chromium.  
+> - Right click on the launch area of the task bar (the icons that are already pinned)
+> - Click `Application Launch Bar Settings`
+> - Add Firefox and Visual Studio to the taskbar. Remove Chromium.
 
 **Desktop Apearance:**
 
-> - Right click on the desktop and click `Desktop Appearance`.  
+> - Right click on the desktop and click `Desktop Appearance`.
 > - Select background and color scheme. (I like aurora for the background image, and dark green for taskbar.)
-
