@@ -91,7 +91,7 @@
 > sudo python /home/pi/yourprogram/program.py &
 > ```
 >
-> - **Replace `/home/pi/yourprogram/program.py` with your directory**
+> - **Replace `pi` with your directory**
 >
 > - **Don't forget the `&` at the end to allow the program to run in the background**
 >
