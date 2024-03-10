@@ -17,18 +17,18 @@
 
 ## Materials
 
-- Raspberry Pi Zero
+- Raspberry Pi Zero W or Zero 2 W
+- 20x2 pin header (if header is not included with Pi)
 - MicroSD card - at least 4GB
-- Mini HDMI Cable or adapter.
-- MicroUSB cable or adapter
-- 5V 2.5A power supply
+- HDMI-to-Mini HDMI Cable or adapter.
+- USB-to-MicroUSB cable or adapter
+- 5V power supply, at least 2.5A
 - Monitor
 - Keyboard
-- 20x2 pin header
 
 ## Setup Procedure
 
-> > 1.  Download the imager on a separate computer: [Pi Imager installation](https://www.raspberrypi.com/software/)
+> > 1.  Download the Raspberry Pi imager on a separate computer: [Pi Imager installation](https://www.raspberrypi.com/software/)
 >
 > > 2.  Follow imager instructions to install Lite OS to flash drive. (32-Bit Laegacy port of Bullseye)
 >
