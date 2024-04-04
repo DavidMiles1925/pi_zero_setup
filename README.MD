@@ -51,9 +51,11 @@
 > > sudo raspi-config
 > > ```
 > >
-> > &emsp;Select ""
-> > &emsp;The "SSID" refers to the name of your network
+> > &emsp;Select "System Settings" and then "Wireless LAN"  
+> > &emsp;The "SSID" refers to the name of your network  
 > > &emsp;The "psk" is your password.
+>
+> > 10.
 >
 > > 10. Set the timezone. From the raspi-config menu, select "4."
 >
@@ -125,6 +127,12 @@
 > > route -ne
 > > ```
 > >
+> > Then find your `IP address`:
+> >
+> > ```bash
+> > ip addr
+> > ```
+> >
 > > 2. Nameserver:
 > >
 > > ```bash
@@ -136,7 +144,7 @@
 > > 4. Configure settings:
 > >
 > > ```bash
-> > sudo nano/etc/dhcpcd.conf
+> > sudo nano /etc/dhcpcd.conf
 > > ```
 > >
 > > - Add this line to the end of the file:
