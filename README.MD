@@ -74,7 +74,17 @@
 > > git config --global user.email "you@example.com"
 > > git config --global user.name "Your Name"
 > > ```
->
+> >
+> > - **NOTE: You may need to generate a key to be able to clone:**  
+> >    Documentation for creating a key: [Managing Your Personal Access Tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
+> >
+> >   Once a key is generated, configure git:
+> >
+> > ```bash
+> > git config --global credential.helper store
+> > sudo nano ~/.git-credentials
+> > ```
+
 > > 10. (Optional) [Configure Static IP Address](#configure-static-ip-address) >> &emsp;This is useful if you want to be able to access your device remotely via SSH.
 
 ## Other Helpful Procedures
