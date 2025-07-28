@@ -127,11 +127,9 @@
 
 ### Configure Static IP Address With nmcli (NetworkManager Command Line Interface)
 
-It seems that this is the new preferred way to set up a Static IP, but I have yet to play with it: Docs will be update when I have gone through the process.
+It seems that this is the new preferred way to set up a Static IP, it has replaced the DHCP instructions that were previously here.
 
-In the meantime, this seems to be the official docs for nmcli: [**Link to Official nmcli Docs**](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/networking_guide/ch-configuring_ip_networking)
-
-**Chat GPT Instructions:**
+Official docs for nmcli: [**Link to Official nmcli Docs**](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/networking_guide/ch-configuring_ip_networking)
 
 #### 1. Check current connection
 
