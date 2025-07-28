@@ -30,7 +30,7 @@
 
 > > 1.  Download the Raspberry Pi imager on a separate computer: [Pi Imager installation](https://www.raspberrypi.com/software/)
 >
-> > 2.  Follow imager instructions to install Lite OS to flash drive. (32-Bit Laegacy port of Bullseye)
+> > 2.  Follow imager instructions to install Lite OS to flash drive. (32-Bit Laegacy port of Bullseye, 64 bit version can run into memory issues even on RPi ZW2)
 >
 > > 3.  Download `ssh` file from above (or create a blank file and name it ssh). NOTE: This file has no contents. It's only purpose is to signal to the RPi that SSH should be enabled.
 >
@@ -125,56 +125,76 @@
 >
 > - _replace "###" with the number from step 4_
 
-### Configure Static IP Address:
+### Configure Static IP Address With nmcli (NetworkManager Command Line Interface)
 
-> > [**Link to article on CircuitBasics.com**](https://www.circuitbasics.com/how-to-set-up-a-static-ip-on-the-raspberry-pi/#:~:text=If%20the%20IP%20address%20of,work%20each%20and%20every%20time)
->
-> > Summary of Article
-> >
-> > 1. Find `Gateway` info for `wlan0`:
-> >
-> > ```bash
-> > route -ne
-> > ```
-> >
-> > Then find your `IP address`:
-> >
-> > ```bash
-> > ip addr
-> > ```
-> >
-> > 2. Nameserver:
-> >
-> > ```bash
-> > cat /etc/resolv.conf
-> > ```
-> >
-> > 3. Take a picture of the screen.
-> >
-> > 4. Configure settings:
-> >
-> > ```bash
-> > sudo nano /etc/dhcpcd.conf
-> > ```
-> >
-> > - Add this line to the end of the file:
-> >
-> > ```bash
-> > interface eth0
-> > static ip_address=192.168.1.100
-> > static routers=192.168.1.1
-> > static domain_name_servers=192.168.1.1 2001:558:feed::1 2001:558:feed::2
-> >
-> > interface wlan0
-> > static ip_address=192.168.1.101
-> > static routers=192.168.1.1
-> > static domain_name_servers=192.168.1.1 2001:558:feed::1 2001:558:feed::2
-> > ```
-> >
-> > - static ip_address: This is the static IP address you’ll use to SSH or remotely connect to your Pi. Take your default gateway IP (found in the steps above), and change the last number to any other number between 0 and 255.
-> > - static routers: This is your default gateway IP address.
-> > - static domain_name_servers: These are the IP’s we found in the resolv.conf file above. Separate each IP with a single space.
-> > - **Set `wlan0` differently than `etho0`**
+It seems that this is the new preferred way to set up a Static IP, but I have yet to play with it: Docs will be update when I have gone through the process.
+
+In the meantime, this seems to be the official docs for nmcli: [**Link to Official nmcli Docs**](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/networking_guide/ch-configuring_ip_networking)
+
+**Chat GPT Instructions:**
+
+#### 1. Check current connection
+
+```bash
+nmcli connection show
+```
+
+Find the active Wi-Fi connection name (often wlan0 or something like MyWifiSSID under the "NAME" column).
+
+#### 2. Get your Wi-Fi interface name
+
+Look under the DEVICE column for the Wi-Fi interface (usually wlan0).
+
+If you cannot find it, use this command:
+
+```bash
+nmcli device status
+```
+
+#### 3. Find IP Address
+
+```bash
+ip addr
+```
+
+Look for IPv4 address
+
+#### 4. Find you Gateway
+
+```bash
+route -ne
+```
+
+#### 5. Find nameserver for IPv4
+
+```bash
+cat /etc/resolv.conf
+```
+
+Look at "nameserver" line (usually top line)
+
+#### 6. Edit the existing connection
+
+Use the name from step 1. For this example, let's assume your connection is called MyWifiSSID.
+
+nmcli connection modify MyWifiSSID ipv4.addresses 192.168.1.100/24
+nmcli connection modify MyWifiSSID ipv4.gateway 192.168.1.1
+nmcli connection modify MyWifiSSID ipv4.dns "8.8.8.8 1.1.1.1"
+nmcli connection modify MyWifiSSID ipv4.method manual
+
+Replace:
+
+    192.168.1.100/24 with your desired static IP and subnet (the /24 means subnet mask 255.255.255.0).
+
+    192.168.1.1 with your actual router/gateway IP.
+
+    The DNS servers result from step 5.
+
+#### 7. Save and apply
+
+nmcli connection up MyWifiSSID
+
+If you're already connected, it may reconnect automatically.
 
 ---
 
