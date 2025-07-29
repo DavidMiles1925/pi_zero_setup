@@ -181,6 +181,36 @@ nmcli connection up MyWifiSSID
 
 If you're already connected, it may reconnect automatically.
 
+## Troubleshooting
+
+### SSH Connection Rejected
+
+This message was seen when attempting to connect to Raspberry Pi Zero via SSH from a Windows 11 Machine using Git Bash.
+
+- The Pi was a replacement using the exact same IP address and Pi Username.
+
+> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+> @ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! @
+> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+> IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+> Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+> It is also possible that a host key has just been changed.
+> The fingerprint for the ED25519 key sent by the remote host is
+> SHA256:U1T27KHowc9wOdZ6WAWrffxsyPG47YeAM+99uGkK3FE.
+> Please contact your system administrator.
+> Add correct host key in /c/Users/astro/.ssh/known_hosts to get rid of this message.
+> Offending ECDSA key in /c/Users/astro/.ssh/known_hosts:17
+> Host key for 192.168.1.161 has changed and you have requested strict checking.
+> Host key verification failed.
+
+**Solution:**
+
+I used this command to generate a new key for the IP:
+
+```bash
+ssh-keygen -R 192.168.1.161
+```
+
 ---
 
 # Pi 4 Model B Setup
