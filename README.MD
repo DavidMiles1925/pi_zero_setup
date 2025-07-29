@@ -181,6 +181,39 @@ nmcli connection up MyWifiSSID
 
 If you're already connected, it may reconnect automatically.
 
+### Set up SSH Key (to eliminate need for password)
+
+1. On you remote machine (often Windows machine) run this command in the CLI:
+
+```bash
+ssh-keygen -t rsa
+```
+
+2. Copy key to Pi
+
+```bash
+scp ~/.ssh/id_rsa.pub PI_NAME@192.168.1.100:~
+```
+
+3. SSH back to Pi. You will still be prompted for a password at this point.
+
+```bash
+ssh PI_NAME@192.168.1.100
+```
+
+4. Set up the key on the RPi.
+
+```bash
+mkdir -p ~/.ssh
+cat ~/id_rsa.pub >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+rm ~/id_rsa.pub
+```
+
+5. Verify that it is working by SSH into RPi
+
+---
+
 ## Troubleshooting
 
 ### SSH Connection Rejected
