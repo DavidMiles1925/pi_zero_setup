@@ -118,7 +118,7 @@ It seems that this is the new preferred way to set up a Static IP, it has replac
 
 Official docs for nmcli: [**Link to Official nmcli Docs**](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/networking_guide/ch-configuring_ip_networking)
 
-#### 1. Check current connection
+1. **Check current connection**
 
 ```bash
 nmcli connection show
@@ -126,7 +126,7 @@ nmcli connection show
 
 Find the active Wi-Fi connection name (often wlan0 or something like MyWifiSSID under the "NAME" column).
 
-#### 2. Get your Wi-Fi interface name
+2. **Get your Wi-Fi interface name**
 
 Look under the DEVICE column for the Wi-Fi interface (usually wlan0).
 
@@ -136,7 +136,7 @@ If you cannot find it, use this command:
 nmcli device status
 ```
 
-#### 3. Find IP Address
+3. **Find IP Address**
 
 ```bash
 ip addr
@@ -144,13 +144,13 @@ ip addr
 
 Look for IPv4 address
 
-#### 4. Find you Gateway
+4. **Find you Gateway**
 
 ```bash
 route -ne
 ```
 
-#### 5. Find nameserver for IPv4
+5. **Find nameserver for IPv4**
 
 ```bash
 cat /etc/resolv.conf
@@ -158,7 +158,7 @@ cat /etc/resolv.conf
 
 Look at "nameserver" line (usually top line)
 
-#### 6. Edit the existing connection
+6. **Edit the existing connection**
 
 Use the name from step 1. For this example, let's assume your connection is called MyWifiSSID.
 
@@ -175,7 +175,7 @@ Replace:
 
     The DNS servers result from step 5.
 
-#### 7. Save and apply
+7. **Save and apply**
 
 nmcli connection up MyWifiSSID
 
@@ -189,18 +189,18 @@ This message was seen when attempting to connect to Raspberry Pi Zero via SSH fr
 
 - The Pi was a replacement using the exact same IP address and Pi Username.
 
-> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-> @ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! @
-> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-> IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
-> Someone could be eavesdropping on you right now (man-in-the-middle attack)!
-> It is also possible that a host key has just been changed.
-> The fingerprint for the ED25519 key sent by the remote host is
-> SHA256:U1T27KHowc9wOdZ6WAWrffxsyPG47YeAM+99uGkK3FE.
-> Please contact your system administrator.
-> Add correct host key in /c/Users/astro/.ssh/known_hosts to get rid of this message.
-> Offending ECDSA key in /c/Users/astro/.ssh/known_hosts:17
-> Host key for 192.168.1.161 has changed and you have requested strict checking.
+> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  
+> @ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! @  
+> @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  
+> IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!  
+> Someone could be eavesdropping on you right now (man-in-the-middle attack)!  
+> It is also possible that a host key has just been changed.  
+> The fingerprint for the ED25519 key sent by the remote host is  
+> SHA256:U1T27KHowc9wOdZ6WAWrffxsyPG47YeAM+99uGkK3FE.  
+> Please contact your system administrator.  
+> Add correct host key in /c/Users/astro/.ssh/known_hosts to get rid of this message.  
+> Offending ECDSA key in /c/Users/astro/.ssh/known_hosts:17  
+> Host key for 192.168.1.161 has changed and you have requested strict checking.  
 > Host key verification failed.
 
 **Solution:**
