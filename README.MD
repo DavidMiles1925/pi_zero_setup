@@ -118,7 +118,20 @@ It seems that this is the new preferred way to set up a Static IP, it has replac
 
 Official docs for nmcli: [**Link to Official nmcli Docs**](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/networking_guide/ch-configuring_ip_networking)
 
-1. **Check current connection**
+1. **Ensure Pi is up to date**
+
+```bash
+sudo apt-get update
+sudo apt-get upgrade
+```
+
+2. **Enable NetworkManager**
+
+```bash
+sudo raspi-config
+```
+
+3. **Check current connection**
 
 ```bash
 nmcli connection show
@@ -126,7 +139,7 @@ nmcli connection show
 
 Find the active Wi-Fi connection name (often wlan0 or something like MyWifiSSID under the "NAME" column).
 
-2. **Get your Wi-Fi interface name**
+4. **Get your Wi-Fi interface name**
 
 Look under the DEVICE column for the Wi-Fi interface (usually wlan0).
 
@@ -136,7 +149,7 @@ If you cannot find it, use this command:
 nmcli device status
 ```
 
-3. **Find IP Address**
+5. **Find IP Address**
 
 ```bash
 ip addr
@@ -144,13 +157,13 @@ ip addr
 
 Look for IPv4 address
 
-4. **Find you Gateway**
+6. **Find you Gateway**
 
 ```bash
 route -ne
 ```
 
-5. **Find nameserver for IPv4**
+7. **Find nameserver for IPv4**
 
 ```bash
 cat /etc/resolv.conf
@@ -158,7 +171,7 @@ cat /etc/resolv.conf
 
 Look at "nameserver" line (usually top line)
 
-6. **Edit the existing connection**
+8. **Edit the existing connection**
 
 Use the name from step 1. For this example, let's assume your connection is called MyWifiSSID.
 
@@ -175,7 +188,7 @@ Replace:
 
     The DNS servers result from step 5.
 
-7. **Save and apply**
+9. **Save and apply**
 
 nmcli connection up MyWifiSSID
 
