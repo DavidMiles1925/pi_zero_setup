@@ -74,6 +74,8 @@
 
 > > 10. (Optional) [Configure Static IP Address](#configure-static-ip-address) >> &emsp;This is useful if you want to be able to access your device remotely via SSH.
 
+---
+
 ## Other Helpful Procedures
 
 ### Configure a Program to Run on Startup:
@@ -111,6 +113,8 @@
 > ```
 >
 > - _replace "###" with the number from step 4_
+
+---
 
 ### Configure Static IP Address With nmcli (NetworkManager Command Line Interface)
 
@@ -194,6 +198,8 @@ nmcli connection up MyWifiSSID
 
 If you're already connected, it may reconnect automatically.
 
+---
+
 ### Set up SSH Key (to eliminate need for password)
 
 1. On you remote machine (often Windows machine) run this command in the CLI:
@@ -202,19 +208,22 @@ If you're already connected, it may reconnect automatically.
 ssh-keygen -t rsa
 ```
 
-2. Copy key to Pi
+- If you asked to overwrite a key, verify that you do not already have a public key in use or it may destroy other connections.
+- Press Enter through the prompts leaving them blank
+
+2. Copy key to Pi (run on remote machine)
 
 ```bash
 scp ~/.ssh/id_rsa.pub PI_NAME@192.168.1.100:~
 ```
 
-3. SSH back to Pi. You will still be prompted for a password at this point.
+3. SSH back to Pi. You will still be prompted for a password at this point. (run on remote machine)
 
 ```bash
 ssh PI_NAME@192.168.1.100
 ```
 
-4. Set up the key on the RPi.
+4. Set up the key on the RPi. (run on RPi)
 
 ```bash
 mkdir -p ~/.ssh
@@ -224,8 +233,6 @@ rm ~/id_rsa.pub
 ```
 
 5. Verify that it is working by SSH into RPi
-
----
 
 ## Troubleshooting
 
