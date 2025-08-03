@@ -80,7 +80,9 @@
 
 ### Configure a Program to Run on Startup:
 
-> 1.  Modify etc/rc.local with admin priviliges:
+**etc/rc.local no longer exists by default and must be created.**
+
+> 1.  Modify (or create) etc/rc.local with admin priviliges:
 >
 > ```bash
 > sudo nano /etc/rc.local
@@ -89,7 +91,11 @@
 > 2.  Add this line to /etc/rc.local:
 >
 > ```bash
+> #!/bin/sh -e
+>
 > sudo python /home/pi/yourprogram/program.py &
+>
+> exit 0
 > ```
 >
 > - **Replace `pi` with your directory**
