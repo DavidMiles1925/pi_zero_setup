@@ -88,7 +88,7 @@
 > sudo nano /etc/rc.local
 > ```
 >
-> 2.  Add this line to /etc/rc.local:
+> 2.  Add this to /etc/rc.local:
 >
 > ```bash
 > #!/bin/sh -e
@@ -102,7 +102,14 @@
 >
 > - **Don't forget the `&` at the end to allow the program to run in the background**
 >
-> 3.  Stopping the process:
+> 3. Modify file owner and owner group, as well as permissions:
+>
+> ```bash
+> sudo chown root:root /etc/rc.local
+> sudo chmod 755 /etc/rc.local
+> ```
+>
+> 4. Stopping the process:
 >
 > - To stop the process, first find the PID number:
 >
