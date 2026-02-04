@@ -80,52 +80,51 @@
 
 ### Configure a Program to Run on Startup:
 
-**etc/rc.local no longer exists by default and must be created.**
+**etc/rc.local has been depricated.**
 
-> 1.  Modify (or create) etc/rc.local with admin priviliges:
->
-> ```bash
-> sudo nano /etc/rc.local
-> ```
->
-> 2.  Add this to /etc/rc.local:
->
-> ```bash
-> #!/bin/sh -e
->
-> sudo python /home/pi/yourprogram/program.py &
->
-> exit 0
-> ```
->
-> - **Replace `pi` with your directory**
->
-> - **Don't forget the `&` at the end to allow the program to run in the background**
->
-> 3. Modify file owner and owner group, as well as permissions:
->
-> ```bash
-> sudo chown root:root /etc/rc.local
-> sudo chmod 755 /etc/rc.local
-> ```
->
-> 4. Stopping the process:
->
-> - To stop the process, first find the PID number:
->
-> ```bash
-> ps aux | grep "main.py"
-> ```
->
-> - _Note the number in the second column._
->
-> - Ternimate Process:
->
-> ```bash
-> sudo kill -TERM ###
-> ```
->
-> - _replace "###" with the number from step 4_
+Create service file:
+
+```bash
+sudo nano /etc/systemd/system/myapp.service
+```
+
+Change "pi" yo your username and "myapp" to the file name
+
+```bash
+[Unit]
+Description=My Startup App
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/myapp.py
+WorkingDirectory=/home/pi
+Restart=on-failure
+User=pi
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Enable it:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable myapp
+sudo systemctl start myapp
+```
+
+Logs are easy:
+
+```bash
+journalctl -u myapp -f
+```
+
+To stop service:
+
+```bash
+sudo systemctl stop myapp
+```
 
 ---
 
