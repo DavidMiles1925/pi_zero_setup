@@ -276,6 +276,64 @@ I used this command to generate a new key for the IP:
 ssh-keygen -R 192.168.1.161
 ```
 
+### SSH Connection Timeout:
+
+#### Mac address is randomizing
+
+Check:
+
+- Is device connected to router?
+  - I found that the device was connected, but the IP had changed, despite having a static IP set.
+  - The MAC address on the RPi had changed.
+
+I found this to be the issue when after router restart I could not get the RPis to connect, even after multiple device restarts.
+
+```bash
+sudo nano /etc/netplan/*.yaml
+```
+
+Add (or adjust) the lines in the file:
+
+```yaml
+macaddress: "permanent"
+wifi.mac-address-randomization: "0"
+```
+
+See the full file below to know where to place them:
+
+```yaml
+network:
+  version: 2
+  wifis:
+    wlan0:
+      renderer: NetworkManager
+      match: {}
+      dhcp4: true
+      macaddress: "permanent"
+      access-points:
+        "MilesWireless5":
+          auth:
+            key-management: "psk"
+            password: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+          networkmanager:
+            uuid: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+            name: "netplan-wlan0-xxxxxxxxxxxx"
+            passthrough:
+              wifi.mac-address-randomization: "0"
+              proxy._: ""
+      networkmanager:
+        uuid: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+        name: "netplan-wlan0-MilesWireless5"
+```
+
+```bash
+sudo netplan apply
+```
+
+Rebooth the device
+
+Reconfigure static IP address to match the new permanent MAC address.
+
 ---
 
 # Pi 4 Model B Setup
