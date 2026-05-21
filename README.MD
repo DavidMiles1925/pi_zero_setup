@@ -90,7 +90,7 @@ sudo nano /etc/systemd/system/myapp.service
 
 Change "pi" yo your username and "myapp" to the file name
 
-```bash
+```ini
 [Unit]
 Description=My Startup App
 After=network-online.target
@@ -246,6 +246,88 @@ rm ~/id_rsa.pub
 
 5. Verify that it is working by SSH into RPi
 
+### Set Pi to Restart Automatically
+
+1. Create a service
+
+```bash
+sudo nano /etc/systemd/system/auto-reboot.service
+```
+
+```ini
+[Unit]
+Description=Auto reboot service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/shutdown -r now
+```
+
+2. Create a Timer
+
+```bash
+sudo nano /etc/systemd/system/auto-reboot.timer
+```
+
+```ini
+[Unit]
+Description=Run reboot 4:01AM
+
+[Timer]
+OnCalendar=*-*-* 04:01:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+```
+
+3. Reload System
+
+```bash
+sudo systemctl daemon-reload
+```
+
+4. Enable the Timer
+
+```bash
+sudo systemctl enable --now auto-reboot.timer
+```
+
+5. Verify it is active
+
+Check timer status:
+
+```bash
+systemctl status auto-reboot.timer
+```
+
+You should see something like:
+
+`Active: active (waiting)`
+`Trigger: Thu 2026-05-21 03:00:00 CDT`
+
+You can also list all timers:
+
+```bash
+systemctl list-timers
+```
+
+6. View logs later
+
+To see reboot timer logs:
+
+```bash
+journalctl -u daily-reboot.service
+```
+
+Or timer logs:
+
+```bash
+journalctl -u daily-reboot.timer
+```
+
 ## Troubleshooting
 
 ### SSH Connection Rejected
@@ -299,7 +381,7 @@ macaddress: "permanent"
 wifi.mac-address-randomization: "0"
 ```
 
-See the full file below to know where to place them:
+See the full example file below to know where to place them:
 
 ```yaml
 network:
