@@ -328,6 +328,182 @@ Or timer logs:
 journalctl -u daily-reboot.timer
 ```
 
+### Network Watchdog Script - Recover From Dropped Connection
+
+> This script:
+>
+> - attempts recovery every 5 minutes
+> - reboots after one failed recovery
+> - attempts notification on the second consecutive watchdog reboot
+
+Install curl if needed:
+
+```bash
+sudo apt install curl
+```
+
+1. Create Watchdog Script
+
+```bash
+sudo nano /usr/local/bin/network-watchdog.sh
+```
+
+```bash
+#!/bin/bash
+
+TARGET="1.1.1.1"
+LOGFILE="/var/log/network-watchdog.log"
+
+# CHANGE THIS
+NTFY_TOPIC="your_topic_here"
+
+STATEFILE="/var/tmp/network-watchdog-reboot"
+
+log_message() {
+    echo "$(date): $1" >> $LOGFILE
+}
+
+send_ntfy() {
+    curl -H "Title: Raspberry Pi Network Failure" \
+         -H "Priority: urgent" \
+         -d "$1" \
+         https://ntfy.sh/$NTFY_TOPIC
+}
+
+# Test connectivity
+ping -c 3 -W 5 $TARGET > /dev/null 2>&1
+
+if [ $? -ne 0 ]; then
+
+    log_message "Network down, attempting NetworkManager restart..."
+
+    systemctl restart NetworkManager
+
+    sleep 20
+
+    # Test again
+    ping -c 3 -W 5 $TARGET > /dev/null 2>&1
+
+    if [ $? -ne 0 ]; then
+
+        log_message "Recovery failed."
+
+        # If previous reboot was also watchdog-triggered
+        if [ -f "$STATEFILE" ]; then
+
+            log_message "Second consecutive watchdog reboot detected."
+
+            send_ntfy "Raspberry Pi has failed network recovery twice consecutively and is rebooting again."
+
+        fi
+
+        # Mark reboot reason
+        touch "$STATEFILE"
+
+        log_message "Rebooting system."
+
+        /usr/sbin/reboot
+
+    else
+
+        log_message "Network recovered after NetworkManager restart."
+
+        # Recovery succeeded, clear reboot marker
+        rm -f "$STATEFILE"
+    fi
+
+else
+
+    # Network healthy
+    rm -f "$STATEFILE"
+
+fi
+```
+
+Replace the ntfy topic
+
+Change:
+
+```bash
+NTFY_TOPIC="your_topic_here"
+```
+
+to your real topic:
+
+NTFY_TOPIC="myhousealerts"
+
+2. Make it executable
+
+```bash
+sudo chmod +x /usr/local/bin/network-watchdog.sh
+```
+
+3. Create the service
+
+```bash
+sudo nano /etc/systemd/system/network-watchdog.service
+```
+
+```ini
+[Unit]
+Description=Network watchdog
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/network-watchdog.sh
+```
+
+4. Create the timer
+
+```bash
+sudo nano /etc/systemd/system/network-watchdog.timer
+```
+
+```ini
+[Unit]
+Description=Run network watchdog every 5 minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+```
+
+5. Enable the service
+
+```bash
+sudo systemctl daemon-reload
+```
+
+```bash
+sudo systemctl enable --now network-watchdog.timer
+```
+
+6. Verify
+
+```bash
+systemctl list-timers
+```
+
+7. Check Logs
+
+```bash
+cat /var/log/network-watchdog.log
+```
+
+**OR**
+
+```bash
+journalctl -u network-watchdog.service
+```
+
+---
+
 ## Troubleshooting
 
 ### SSH Connection Rejected
