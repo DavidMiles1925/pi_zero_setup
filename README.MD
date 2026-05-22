@@ -214,7 +214,7 @@ If you're already connected, it may reconnect automatically.
 
 ### Set up SSH Key (to eliminate need for password)
 
-1. On you remote machine (often Windows machine) run this command in the CLI:
+**1. On you remote machine (often Windows machine) run this command in the CLI:**
 
 ```bash
 ssh-keygen -t rsa
@@ -223,19 +223,19 @@ ssh-keygen -t rsa
 - If you asked to overwrite a key, verify that you do not already have a public key in use or it may destroy other connections.
 - Press Enter through the prompts leaving them blank
 
-2. Copy key to Pi (run on remote machine)
+**2. Copy key to Pi (run on remote machine)**
 
 ```bash
 scp ~/.ssh/id_rsa.pub PI_NAME@192.168.1.100:~
 ```
 
-3. SSH back to Pi. You will still be prompted for a password at this point. (run on remote machine)
+**3. SSH back to Pi. You will still be prompted for a password at this point. (run on remote machine)**
 
 ```bash
 ssh PI_NAME@192.168.1.100
 ```
 
-4. Set up the key on the RPi. (run on RPi)
+**4. Set up the key on the RPi. (run on RPi)**
 
 ```bash
 mkdir -p ~/.ssh
@@ -244,11 +244,11 @@ chmod 600 ~/.ssh/authorized_keys
 rm ~/id_rsa.pub
 ```
 
-5. Verify that it is working by SSH into RPi
+**5. Verify that it is working by SSH into RPi**
 
 ### Set Pi to Restart Automatically
 
-1. Create a service
+**1. Create a service**
 
 ```bash
 sudo nano /etc/systemd/system/auto-reboot.service
@@ -265,7 +265,7 @@ Type=oneshot
 ExecStart=/usr/sbin/shutdown -r now
 ```
 
-2. Create a Timer
+**2. Create a Timer**
 
 ```bash
 sudo nano /etc/systemd/system/auto-reboot.timer
@@ -283,19 +283,19 @@ Persistent=true
 WantedBy=timers.target
 ```
 
-3. Reload System
+**3. Reload System**
 
 ```bash
 sudo systemctl daemon-reload
 ```
 
-4. Enable the Timer
+**4. Enable the Timer**
 
 ```bash
 sudo systemctl enable --now auto-reboot.timer
 ```
 
-5. Verify it is active
+**5. Verify it is active**
 
 Check timer status:
 
@@ -314,7 +314,7 @@ You can also list all timers:
 systemctl list-timers
 ```
 
-6. View logs later
+**6. View logs later**
 
 To see reboot timer logs:
 
@@ -336,7 +336,7 @@ journalctl -u daily-reboot.timer
 > - reboots after one failed recovery
 > - attempts notification on the second consecutive watchdog reboot
 
-0. Prerequisites:
+**0. Prerequisites:**
 
 - (Optional) Have a ntfy topic set up for notifications: [Documentation Here](https://docs.ntfy.sh/)
 
@@ -346,7 +346,7 @@ journalctl -u daily-reboot.timer
 sudo apt install curl
 ```
 
-1. Create Watchdog Script
+**1. Create Watchdog Script**
 
 ```bash
 sudo nano /usr/local/bin/network-watchdog.sh
@@ -438,13 +438,13 @@ to your real topic:
 NTFY_TOPIC="myhousealerts"
 ```
 
-2. Make it executable
+**2. Make it executable**
 
 ```bash
 sudo chmod +x /usr/local/bin/network-watchdog.sh
 ```
 
-3. Create the service
+**3. Create the service**
 
 ```bash
 sudo nano /etc/systemd/system/network-watchdog.service
@@ -461,7 +461,7 @@ Type=oneshot
 ExecStart=/usr/local/bin/network-watchdog.sh
 ```
 
-4. Create the timer
+**4. Create the timer**
 
 ```bash
 sudo nano /etc/systemd/system/network-watchdog.timer
@@ -480,7 +480,7 @@ Persistent=true
 WantedBy=timers.target
 ```
 
-5. Enable the service
+**5. Enable the service**
 
 ```bash
 sudo systemctl daemon-reload
@@ -490,13 +490,13 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now network-watchdog.timer
 ```
 
-6. Verify
+**6. Verify**
 
 ```bash
 systemctl list-timers
 ```
 
-7. Check Logs
+**7. Check Logs**
 
 ```bash
 cat /var/log/network-watchdog.log
@@ -508,10 +508,10 @@ cat /var/log/network-watchdog.log
 journalctl -u network-watchdog.service
 ```
 
-> **NOTE: If your pi gets stuck in a loop restarting because it cannot connect, run this command:**
+> **NOTE: If your pi gets stuck in a loop restarting because it cannot connect, run this command immediately after startup:**
 >
 > ```bash
-> sudo systemctl enable --now network-watchdog.timer
+> sudo systemctl disable --now network-watchdog.timer
 > ```
 
 ---
