@@ -336,7 +336,11 @@ journalctl -u daily-reboot.timer
 > - reboots after one failed recovery
 > - attempts notification on the second consecutive watchdog reboot
 
-Install curl if needed:
+0. Prerequisites:
+
+- (Optional) Have a ntfy topic set up for notifications: [Documentation Here](https://docs.ntfy.sh/)
+
+- Install curl if needed:
 
 ```bash
 sudo apt install curl
@@ -420,7 +424,7 @@ else
 fi
 ```
 
-Replace the ntfy topic
+Replace `"your_topic_here"` with your ntfy topic (If you did not set up a ntfy topic, skip this step)
 
 Change:
 
@@ -430,7 +434,9 @@ NTFY_TOPIC="your_topic_here"
 
 to your real topic:
 
+```bash
 NTFY_TOPIC="myhousealerts"
+```
 
 2. Make it executable
 
@@ -501,6 +507,12 @@ cat /var/log/network-watchdog.log
 ```bash
 journalctl -u network-watchdog.service
 ```
+
+> **NOTE: If your pi gets stuck in a loop restarting because it cannot connect, run this command:**
+>
+> ```bash
+> sudo systemctl enable --now network-watchdog.timer
+> ```
 
 ---
 
