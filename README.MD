@@ -459,6 +459,9 @@ Wants=network-online.target
 [Service]
 Type=oneshot
 ExecStart=/usr/local/bin/network-watchdog.sh
+
+[Install]
+WantedBy=multi-user.target
 ```
 
 **4. Create the timer**
@@ -473,7 +476,7 @@ Description=Run network watchdog every 5 minutes
 
 [Timer]
 OnBootSec=2min
-OnUnitActiveSec=5min
+OnUnitInactiveSec=5min
 Persistent=true
 
 [Install]
@@ -508,15 +511,52 @@ cat /var/log/network-watchdog.log
 journalctl -u network-watchdog.service
 ```
 
+#### Troubleshooting Network Watchdog
+
+**Infinite Reboot Loop**
+
 > **NOTE: If your pi gets stuck in a loop restarting because it cannot connect, run this command immediately after startup:**
 >
 > ```bash
 > sudo systemctl disable --now network-watchdog.timer
 > ```
 
+**Timer is disabled and will not restart:**
+
+> Description: I discovered that one of my pis was dropping connection and not reconnecting regularly. When I looked at the logs I could see the service had at one point done its job, but there >were no log entries for a couple of days, despite dropped connections. Upon running `systemctl list-timers` I found the timer was disabled and I was unable to manually start it again. I made >some modifications to the service and timer, and then had to manually restart the service.
+>
+> 1.  Ensure `network-watchdog.service` and `network-watchdog.timer` have been updated to the latest version, see code above.
+> 2.  Restart the timer:
+>
+> ```bash
+> sudo systemctl daemon-reload
+>
+> sudo systemctl stop network-watchdog.timer
+> sudo systemctl disable network-watchdog.timer
+>
+> sudo systemctl enable network-watchdog.timer
+> sudo systemctl start network-watchdog.timer
+> ```
+>
+> 3.  Manually start the service:
+>
+> ```bash
+> sudo systemctl start network-watchdog.service
+> ```
+>
+> 4.  Verify:
+>
+> ```bash
+> systemctl status network-watchdog.service
+> ```
+>
+> ```bash
+> systemctl list-timers --all
+> ```
+
 ---
 
-## Troubleshooting
+## Troubleshooting - General
 
 ### SSH Connection Rejected
 
