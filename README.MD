@@ -369,7 +369,7 @@ log_message() {
 
 send_ntfy() {
     curl -H "Title: Raspberry Pi Network Failure" \
-         -H "Priority: urgent" \
+         -H "Priority: 2" \
          -d "$1" \
          https://ntfy.sh/$NTFY_TOPIC
 }
